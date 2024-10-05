@@ -1,0 +1,39 @@
+.login-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.login-form{
+    margin-top: 10%;
+}
+
+.insta-image-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.ig-logo{
+    height: 7.5em;
+}
+
+.carousel-wrapper{
+    margin-top: 8%;
+    background-image: url('../images/phone-insta1.jpg');
+    height: 35em;
+    width: 25%;
+    background-size: cover; 
+    position: relative;
+}
+
+.carousel-images{
+    overflow: hidden;
+    border-radius: 2em;
+    position: absolute;
+    top: 2em;
+    left: 12em;
+    width: 14.5em;
+}
+
+.slider-img{
+    border-radius: 2em;
+}

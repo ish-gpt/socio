@@ -1,0 +1,17 @@
+.signup-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.signup-form{
+    margin-top: 10%;
+}
+
+.insta-image-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.ig-logo{
+    height: 7.5em;
+}
