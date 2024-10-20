@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-// import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './Signup.css';
@@ -12,11 +11,8 @@ import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Link ,useNavigate } from 'react-router-dom';
-// import Button from '@mui/material/Button';
 import { AuthContext } from '../context/AuthContext';
 import { uploadUserProfile } from '../profileStorage';
-// import { firestoreCollection, addDocsFirestore } from '../firebase';
-import { add } from '../firebaseCRUD';
 
 const useStyles = makeStyles({
     textTheme: {
@@ -61,10 +57,9 @@ export default function Signup() {
         }
         try {
             let res = await signup(email, password);
-            // console.log("------------", res);
             await uploadUserProfile(res.user, file, userName);
             setLoading(false);
-            navigate("/");
+            navigate("/login");
         } catch (error) {
             setError('Some Error has occured, Please try again!');
             console.log("SIGNUP ERROR", error);
@@ -72,7 +67,6 @@ export default function Signup() {
                 setError('');
                 setLoading(false);
             }, 10000);
-            // return;
         }
     }
   return (

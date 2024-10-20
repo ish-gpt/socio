@@ -1,0 +1,18 @@
+.insta-image-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.ig-logo{
+    height: 4.5em;
+}
+
+.feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.user-story{
+    
+}
