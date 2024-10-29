@@ -35,6 +35,7 @@ import LinearProgress from '@mui/joy/LinearProgress';
 import Snackbar from '@mui/joy/Snackbar';
 import { uploadUserPosts } from '../profileStorage';
 import { getUserData } from '../firebaseCRUD';
+import Posts from './Posts';
 
 
 const drawerWidth = 280;
@@ -42,7 +43,7 @@ const drawerWidth = 280;
 export default function Feed() {
 
     // let uploadSuccessfull;
-    let IconsArr = [<HomeIcon />, <SearchIcon />, <ExploreOutlinedIcon />, <></>, <ChatBubbleOutlineIcon />, <FavoriteBorderIcon />, <AddBoxOutlinedIcon />, <AccountCircleOutlinedIcon />]
+    let IconsArr = [<HomeIcon />, <SearchIcon />, <ExploreOutlinedIcon />, <SlideshowOutlinedIcon />, <ChatBubbleOutlineIcon />, <FavoriteBorderIcon />, <></>, <AccountCircleOutlinedIcon />]
     let { logout, user } = useContext(AuthContext);
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -58,7 +59,6 @@ export default function Feed() {
         getUserData(user).then((res) => {
             setUserDetails(res);
         });
-        // return () => {unsub()}
     }, [user])
 
     async function logOut() {
@@ -117,144 +117,147 @@ export default function Feed() {
 
     }
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar style={{ color: 'black', backgroundColor: 'white' }}
-                position="fixed"
-                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
-            >
-                <div className='feed-header'>
-                    <div>
-                        <Toolbar>
-                            <Typography variant="h6" noWrap component="div">
-                                <Stack direction="row" spacing={2} maxWidth={720} sx={{
-                                    overflowX: 'hidden', // Hide overflow (both X and Y) by default
-                                    '&:hover': {
-                                        overflow: 'auto', // Show overflow when hovering over the Stack
-                                        cursor: 'pointer'
-                                    },
-                                    '&::-webkit-scrollbar': {
-                                        display: 'none'
-                                    }
-                                }}>
-                                    {
-                                        storiesArray.map((imgSrc) => (
-                                            <div style={{
-                                                display: 'inline-block',
-                                                padding: '3px', // Padding creates space for the border
-                                                background: 'linear-gradient(to right, red, purple)',
-                                                borderRadius: '50%', // Full border radius for a circular shape
-                                            }}>
-                                                <Avatar alt="" src={imgSrc} sx={{
+        <div className='user-v'>
+            <Box sx={{
+                display: 'flex',
+                
+            }}>
+                {/* <CssBaseline /> */}
+                <AppBar style={{ color: 'black', backgroundColor: 'white' }}
+                    position="fixed"
+                    sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+                >
+                    <div className='feed-header'>
+                        <div>
+                            <Toolbar>
+                                <Typography variant="h6" noWrap component="div">
+                                    <Stack direction="row" spacing={2} maxWidth={720} sx={{
+                                        overflowX: 'hidden', // Hide overflow (both X and Y) by default
+                                        '&:hover': {
+                                            overflow: 'auto', // Show overflow when hovering over the Stack
+                                            cursor: 'pointer'
+                                        },
+                                        '&::-webkit-scrollbar': {
+                                            display: 'none'
+                                        }
+                                    }}>
+                                        {
+                                            storiesArray.map((imgSrc) => (
+                                                <div style={{
+                                                    display: 'inline-block',
+                                                    padding: '3px', // Padding creates space for the border
+                                                    background: 'linear-gradient(to right, red, purple)',
+                                                    borderRadius: '50%', // Full border radius for a circular shape
+                                                }}>
+                                                    <Avatar alt="" src={imgSrc} sx={{
 
-                                                    borderRadius: '50%', // Ensure the Avatar remains circular
-                                                    backgroundColor: 'white', // Optional: set a background for the inner avatar
-                                                }} />
-                                            </div>
-                                        ))
-                                    }
-                                </Stack>
-                            </Typography>
-                        </Toolbar>
+                                                        borderRadius: '50%', // Ensure the Avatar remains circular
+                                                        backgroundColor: 'white', // Optional: set a background for the inner avatar
+                                                    }} />
+                                                </div>
+                                            ))
+                                        }
+                                    </Stack>
+                                </Typography>
+                            </Toolbar>
+                        </div>
+                        <div>
+                            <Suggestion></Suggestion>
+                        </div>
                     </div>
-                    <div>
-                        <Suggestion></Suggestion>
-                    </div>
-                </div>
 
-            </AppBar>
-            <Drawer
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
+                </AppBar>
+                <Drawer
+                    sx={{
                         width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="permanent"
-                anchor="left"
-            >
-                <Toolbar>
-                    <div className='insta-image-wrapper'>
-                        <img className='ig-logo' src={insta} alt='ig-logo'></img>
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: drawerWidth,
+                            boxSizing: 'border-box',
+                        },
+                    }}
+                    variant="permanent"
+                    anchor="left"
+                >
+                    <Toolbar>
+                        <div className='insta-image-wrapper'>
+                            <img className='ig-logo' src={insta} alt='ig-logo'></img>
+                        </div>
+                    </Toolbar>
+                    {/* <Divider /> */}
+                    <List>
+                        {['Home', 'Search', ' Explore', 'Reel', 'Messages', 'Notification', 'Create', 'Profile'].map((text, index) => (
+                            <ListItem sx={{ marginBottom: 2 }} key={text} disablePadding>
+                                <ListItemButton component='label'>
+                                    <ListItemIcon style={{ color: 'black' }}>
+                                        {text == 'Create' ?
+                                            <>
+                                                <AddBoxOutlinedIcon />
+                                                <input type="file" accept='video/*' hidden onChange={(e) => handleUploadReel(e.target.files[0])} />
+                                            </>
+                                            : IconsArr[index]}
+                                    </ListItemIcon>
+                                    <ListItemText primary={text} />
+                                </ListItemButton>
+                                {(text == 'Create' && (loading == true)) ? <LinearProgress
+                                    color="primary"
+                                    size="sm"
+                                    value={30}
+                                    variant="outlined"
+                                    thickness={3}
+                                /> : <></>}
+                            </ListItem>
+
+                        ))}
+                    </List>
+                </Drawer>
+                <Box
+                    component="main"
+                    sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+                >
+                    <Toolbar />
+                    <div className='new-div'>
+                        <button onClick={logOut}>Logout</button>
+                        <Posts className="user" userData={user}></Posts>
                     </div>
-                </Toolbar>
-                {/* <Divider /> */}
-                <List>
-                    {['Home', 'Search', ' Explore', 'Reel', 'Messages', 'Notification', 'Create', 'Profile'].map((text, index) => (
-                        <ListItem sx={{ marginBottom: 2 }} key={text} disablePadding>
-                            <ListItemButton component='label'>
-                                <ListItemIcon style={{ color: 'black' }}>
-                                    {text == 'Reel' ?
-                                        <>
-                                            <SlideshowOutlinedIcon />
-                                            <input type="file" accept='video/*' hidden onChange={(e) => handleUploadReel(e.target.files[0])} />
-                                        </>
-                                        : IconsArr[index]}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                            {(text == 'Reel' && (loading == true)) ? <LinearProgress
-                                color="primary"
-                                size="sm"
-                                value={30}
-                                variant="outlined"
-                                thickness={3}
-                            /> : <></>}
-                        </ListItem>
 
-                    ))}
-                </List>
-            </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
-                <Toolbar />
-                <Typography sx={{ marginBottom: 2 }}>
-                    <h1>POST-1</h1>
-                </Typography>
-                <Typography sx={{ marginBottom: 2 }}>
-                    <h1>POST-2</h1>
-                    <button onClick={logOut}>Logout</button>
-                </Typography>
+                </Box>
+                {
+                    error != '' ? <Snackbar
+                        autoHideDuration={errorTimer}
+                        open={open}
+                        color='danger'
+                        variant='solid'
+                        onClose={(event, reason) => {
+                            if (reason === 'clickaway') {
+                                return;
+                            }
+                            setOpen(false);
+                        }}
+                    >
+                        {error}
+                    </Snackbar> : <></>
+                }
+                {
+                    uploadSuccessfull ? <Snackbar
+                        autoHideDuration={uploadTimer}
+                        open={uploadSuccessfull}
+                        color='success'
+                        variant='solid'
+                        onClose={(event, reason) => {
+                            if (reason === 'clickaway') {
+                                return;
+                            }
+                            // uploadSuccessfull = false;
+                            setUploadSuccessfull(false);
+                        }}
+                    >
+                        Post uploaded Successfully
+                    </Snackbar> : <></>
+                }
+
             </Box>
-            {
-                error != '' ? <Snackbar
-                    autoHideDuration={errorTimer}
-                    open={open}
-                    color='danger'
-                    variant='solid'
-                    onClose={(event, reason) => {
-                        if (reason === 'clickaway') {
-                            return;
-                        }
-                        setOpen(false);
-                    }}
-                >
-                    {error}
-                </Snackbar> : <></>
-            }
-            {
-                uploadSuccessfull? <Snackbar
-                    autoHideDuration={uploadTimer}
-                    open={uploadSuccessfull}
-                    color='success'
-                    variant='solid'
-                    onClose={(event, reason) => {
-                        if (reason === 'clickaway') {
-                            return;
-                        }
-                        // uploadSuccessfull = false;
-                        setUploadSuccessfull(false);
-                    }}
-                >
-                    Post uploaded Successfully
-                </Snackbar> :<></>
-            }
-
-        </Box>
+        </div>
 
     );
 }

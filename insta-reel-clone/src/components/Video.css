@@ -1,0 +1,14 @@
+.insta-video{
+    height: 65%;
+    width: 40%;
+    border-radius: 20px;
+    scroll-snap-align: center;
+}
+
+.videos-wrapper{
+    width: 100%;
+}
+
+.insta-video-wrapper{
+    text-align: center;
+}
