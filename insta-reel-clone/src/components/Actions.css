@@ -1,0 +1,15 @@
+.icons{
+    color: black;
+    cursor: pointer;
+}
+
+.like-styling-icon{
+    color: #e74c3c;
+    cursor: pointer;
+}
+
+
+.unlike-styling-icon{
+    color: black;
+    cursor: pointer;
+}
