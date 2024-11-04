@@ -15,7 +15,7 @@ function Video(props) {
       <div className='insta-video-wrapper'>
         <video onEnded={handleScroll} src={props.src} controls className='insta-video'></video>
       </div>
-      <div style={{paddingLeft:'32%'}}>
+      <div style={{paddingLeft:'31%'}}>
         <Actions userData={props.userData} postData={props.postData} />
       </div>
     </div>

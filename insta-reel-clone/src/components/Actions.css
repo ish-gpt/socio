@@ -1,15 +1,27 @@
 .icons{
     color: black;
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.icons:hover{
+    color: gray;
 }
 
 .like-styling-icon{
     color: #e74c3c;
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
-
+.unlike-styling-icon:hover{
+    color: gray;
+}
 .unlike-styling-icon{
     color: black;
     cursor: pointer;
+    margin-left: 5px;
+    margin-right: 5px;
 }

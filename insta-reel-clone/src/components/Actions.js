@@ -6,9 +6,11 @@ import SendIcon from '@mui/icons-material/Send';
 import './Actions.css';
 import { dbInstance } from '../firebase';
 import { doc, updateDoc } from "firebase/firestore";
+import Comment from './Comment';
 
 function Actions({ userData, postData }) {
   const [like, setLikes] = useState(null);
+  const [openPopup, setOpenPopup] = useState(false);
   useEffect(() => {
     let check = postData.likes.includes(userData.uid);
     setLikes(check);
@@ -29,16 +31,23 @@ function Actions({ userData, postData }) {
       })
     }
   }
+
+  const handleCommentClick = () => {
+    setOpenPopup(true);
+  }
   return (
 
     <div>
       {
         like != null ? <>
           {
-            like != true ? <FavoriteBorderIcon onClick={handleLikeClick} className='unlike-styling-icon' fontSize='large' /> : <FavoriteIcon onClick={handleLikeClick} fontSize='large' className='like-styling-icon' />
+            like != true ? <FavoriteBorderIcon onClick={handleLikeClick} className='unlike-styling-icon' fontSize='medium' /> : <FavoriteIcon onClick={handleLikeClick} fontSize='medium' className='like-styling-icon' />
           }
-          <ChatBubbleOutlineIcon fontSize='large' className='icons' />
-          <SendIcon fontSize='large' className='icons' />
+          <ChatBubbleOutlineIcon fontSize='medium' className='icons' onClick={handleCommentClick} />
+          {
+            openPopup && <Comment openPopup={openPopup} setPopup={setOpenPopup} userData={userData} postData={postData}></Comment>
+          }
+          <SendIcon fontSize='medium' className='icons' />
         </> : <></>
       }
     </div>

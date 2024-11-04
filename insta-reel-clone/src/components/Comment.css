@@ -1,0 +1,19 @@
+.commnet-modal-wrapper{
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+}
+
+.modal-video{
+    height:100%;
+    width: 100%;
+}
+
+.modal-comment-wrapper{
+    width: 50%;
+}
+
+.modal-video-wrapper{
+    height: 100%;
+    width: 50%;
+}

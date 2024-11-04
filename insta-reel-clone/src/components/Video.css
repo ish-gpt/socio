@@ -2,7 +2,7 @@
     height: 65%;
     width: 40%;
     border-radius: 20px;
-    scroll-snap-align: center;
+    /* scroll-snap-align: center; */
 }
 
 .videos-wrapper{
