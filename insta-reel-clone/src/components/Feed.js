@@ -93,7 +93,6 @@ export default function Feed() {
                 setLoading(false);
                 setUploadTimer(5000);
                 setUploadSuccessfull(true);
-                //post upload successfull notification
             }).catch((error) => {
                 setLoading(false);
                 setError('Error in Uploading Reel', error);
