@@ -1,6 +1,6 @@
 // import { resolve } from 'npm-package-arg';
 import { addDocsFirestore, firestoreCollection, dbInstance } from './firebase';
-import { updateDoc, serverTimestamp, doc, getDoc, setDoc, collection, addDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { updateDoc, serverTimestamp, doc, getDoc, getDocs, setDoc, collection, addDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export async function add(data, dbName, metaData) {
     try {
@@ -112,4 +112,15 @@ export async function isCommentLikedByUser(commentData, userDetails) {
     const docSnap = await getDoc(commentRef);
     let data = await Promise.all([docSnap.data()]);
     return data[0].likedBy.includes(userDetails.uid);
+}
+
+export async function getAllUsers() {
+
+    const querySnapshot = await getDocs(collection(dbInstance, "users"));
+    let usersData = [];
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        usersData.push(doc.data());
+    });
+    return usersData;
 }

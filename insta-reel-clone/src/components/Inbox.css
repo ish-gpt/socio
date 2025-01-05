@@ -1,0 +1,56 @@
+/* .inbox-wrapper{
+    justify-content: space-around;
+} */
+
+.chats-section-wrapper{
+    display: flex;
+
+}
+
+.section-chat{
+    flex-grow: 9;
+}
+
+.section-friends{
+    flex-grow: 1;
+}
+
+.user-detail{
+    padding-top: 1em;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1em;
+}
+
+.new-msg-icon{
+    padding-right: 1em;
+    align-content: center;
+}
+
+.notes-section{
+    padding-bottom: 0.5em;
+}
+
+.msg-req-section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.friends-section{
+ height: calc(100vh - 263.41px); /*263.41px  is the total height of all the above sibling divs*/
+ overflow: auto;
+}
+
+.friend-avatar{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.friend-img-name-wrapper{
+    display: flex;
+}
+
+.friend-list-item:hover{
+    background-color: rgb(245, 245, 245) ;
+    cursor: pointer;
+}

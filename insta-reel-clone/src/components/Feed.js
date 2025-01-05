@@ -36,15 +36,15 @@ import Snackbar from '@mui/joy/Snackbar';
 import { uploadUserPosts } from '../profileStorage';
 import { getUserData } from '../firebaseCRUD';
 import Posts from './Posts';
-
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 280;
 
 export default function Feed() {
 
     // let uploadSuccessfull;
-    let IconsArr = [<HomeIcon />, <SearchIcon />, <ExploreOutlinedIcon />, <SlideshowOutlinedIcon />, <ChatBubbleOutlineIcon />, <FavoriteBorderIcon />, <></>, <AccountCircleOutlinedIcon />]
-    let { logout, user } = useContext(AuthContext);
+    let IconsArr = [<SearchIcon />, <ExploreOutlinedIcon />, <SlideshowOutlinedIcon />, <FavoriteBorderIcon />, <></>, <AccountCircleOutlinedIcon />]
+    let { logout, user, disConnectSocket } = useContext(AuthContext);
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [userDetails, setUserDetails] = useState(false);
@@ -183,9 +183,8 @@ export default function Feed() {
                             <img className='ig-logo' src={insta} alt='ig-logo'></img>
                         </div>
                     </Toolbar>
-                    {/* <Divider /> */}
                     <List>
-                        {['Home', 'Search', ' Explore', 'Reel', 'Messages', 'Notification', 'Create', 'Profile'].map((text, index) => (
+                        {['Search', ' Explore', 'Reel', 'Notification', 'Create', 'Profile'].map((text, index) => (
                             <ListItem sx={{ marginBottom: 2 }} key={text} disablePadding>
                                 <ListItemButton component='label'>
                                     <ListItemIcon style={{ color: 'black' }}>
@@ -205,9 +204,30 @@ export default function Feed() {
                                     variant="outlined"
                                     thickness={3}
                                 /> : <></>}
+                                
                             </ListItem>
 
                         ))}
+                        <Link to='/inbox' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem sx={{ marginBottom: 2 }} disablePadding>
+                                <ListItemButton component='label'>
+                                    <ListItemIcon style={{ color: 'black' }}>
+                                        <ChatBubbleOutlineIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Messages' />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
+                        <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem sx={{ marginBottom: 2 }} disablePadding>
+                                <ListItemButton component='label'>
+                                    <ListItemIcon style={{ color: 'black' }}>
+                                        <HomeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Home' />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                     </List>
                 </Drawer>
                 <Box

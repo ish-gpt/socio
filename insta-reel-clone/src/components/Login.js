@@ -47,7 +47,7 @@ export default function Signup() {
             setTimeout(() => {
                 setError('');
                 setLoading(false);
-            }, 10000);
+            }, 1000);
         }
     }
 
