@@ -14,12 +14,13 @@ import OnlineUserBadge from './badge/OnlineUserBadge';
 import OfflineUserBadge from './badge/OfflineUserBadge';
 
 export default function Inbox() {
-    let { logout, user } = useContext(AuthContext);
+    let { logout, user, socket } = useContext(AuthContext);
     const [userDetails, setUserDetails] = useState(null);
     const [allUsersDetails, setAllUsersDetails] = useState(null);
     const [friendToChat, setFriendToChat] = useState(null);
     const navigate = useNavigate();
     const { onlineUser } = useContext(AuthContext);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
         getUserData(user).then(async (res) => {
@@ -31,10 +32,15 @@ export default function Inbox() {
         // console.log("---", onlineUser);
     }, [user, onlineUser]);
 
+    // socket.on("receivedMsg", (msg) => {
+    //     console.log("000------", msg);
+    // })
+
     const handleChangeURL = (userData) => {
         // window.history.pushState({}, '', `/inbox/${userData.uid}`);
         navigate(`/inbox/${userData.uid}`, { replace: true }); // Change the URL to '/new-url'
         setFriendToChat(userData.uid);
+        setSelectedUser(userData)
     };
 
     return (
@@ -91,10 +97,8 @@ export default function Inbox() {
                         </div>
                     </div>
                     <div className='section-chat'>
-                        <div>
                             {/* <img src={chaticon}></img> */}
-                            <Chat friendToChat={friendToChat}></Chat>
-                        </div>
+                        <Chat userDetails={userDetails} selectedUser={selectedUser}></Chat>
                     </div>
                 </div>
             }

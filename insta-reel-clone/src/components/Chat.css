@@ -1,0 +1,84 @@
+.message-right{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.message-left{
+    /* text-align: left; */
+}
+
+.chat-container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container-header{
+    /* background-color: #f6f6f6; */
+    flex: 1;
+    align-content: center;
+    border-bottom:1px solid #e7e7e7 ;
+}
+
+.messages-contianer{
+    /* background-color: blueviolet; */
+    padding: 1em;
+    flex: 8;
+}
+
+.chat-container-footer{
+    /* background-color: violet; */
+    border-top:1px solid #e7e7e7 ;
+    flex: 1;
+     display: flex; /* Enables flexbox layout */
+    justify-content: center; /* Centers child horizontally */
+    align-items: center; /* Centers child vertically */
+    height: 100px; /* Adjust height as needed */
+    /* background-color: #f3f3f3; Optional for visualization */
+}
+
+.user-avatar{
+   margin-left: 1em;
+}
+
+.right-message-bubble{
+    padding: 0.5em;
+    border: 0.1em solid lightgray;
+    border-radius: 1em;
+    /* background-color: #e74c3c; */
+    background: linear-gradient(#abdee7, #afa3d1);
+}
+
+.left-message-bubble{
+    padding: 0.5em;
+    border: 0.1em solid lightgray;
+    border-radius: 1em;
+    background: linear-gradient(#e7e7e7, #f4f3f5);
+}
+
+.message-footer{
+    display: flex; /* Enables flexbox for internal alignment */
+    align-items: center; /* Aligns items vertically */
+    gap: 10px; /* Adds space between internal elements */
+    width: 100%; /* Optional: Adjusts size */
+    max-width: 100%; /* Optional: Limits the width */
+    padding: 10px; /* Optional: Adds spacing around the content */
+}
+.msg-text{
+    flex: 8;
+}
+
+.send-btn{
+    flex: 1;
+}
+
+.upload-file{
+    flex: 1;
+}
+
+.input-box{
+    width: 100%;
+    height: 100%;
+    border-radius: 2em;
+    border: 1px solid #e7e7e7;
+}

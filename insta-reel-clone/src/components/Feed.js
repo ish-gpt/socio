@@ -43,8 +43,8 @@ const drawerWidth = 280;
 export default function Feed() {
 
     // let uploadSuccessfull;
-    let IconsArr = [<SearchIcon />, <ExploreOutlinedIcon />, <SlideshowOutlinedIcon />, <FavoriteBorderIcon />, <></>, <AccountCircleOutlinedIcon />]
-    let { logout, user, disConnectSocket } = useContext(AuthContext);
+    let IconsArr = [<SearchIcon />, <ExploreOutlinedIcon />, <SlideshowOutlinedIcon />, <FavoriteBorderIcon />, <></>]
+    let { logout, user } = useContext(AuthContext);
     const [file, setFile] = useState(null);
     const [loading, setLoading] = useState(false);
     const [userDetails, setUserDetails] = useState(false);
@@ -184,11 +184,11 @@ export default function Feed() {
                         </div>
                     </Toolbar>
                     <List>
-                        {['Search', ' Explore', 'Reel', 'Notification', 'Create', 'Profile'].map((text, index) => (
+                        {['Search', ' Explore', 'Reel', 'Notification', 'Create'].map((text, index) => (
                             <ListItem sx={{ marginBottom: 2 }} key={text} disablePadding>
                                 <ListItemButton component='label'>
                                     <ListItemIcon style={{ color: 'black' }}>
-                                        {text == 'Create' ?
+                                        {text === 'Create' ?
                                             <>
                                                 <AddBoxOutlinedIcon />
                                                 <input type="file" accept='video/*' hidden onChange={(e) => handleUploadReel(e.target.files[0])} />
@@ -197,7 +197,7 @@ export default function Feed() {
                                     </ListItemIcon>
                                     <ListItemText primary={text} />
                                 </ListItemButton>
-                                {(text == 'Create' && (loading == true)) ? <LinearProgress
+                                {(text === 'Create' && (loading === true)) ? <LinearProgress
                                     color="primary"
                                     size="sm"
                                     value={30}
@@ -208,6 +208,16 @@ export default function Feed() {
                             </ListItem>
 
                         ))}
+                        <Link to='/pagenotfound' style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem sx={{ marginBottom: 2 }} disablePadding>
+                                <ListItemButton component='label'>
+                                    <ListItemIcon style={{ color: 'black' }}>
+                                        <AccountCircleOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Profile' />
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>
                         <Link to='/inbox' style={{ textDecoration: 'none', color: 'inherit' }}>
                             <ListItem sx={{ marginBottom: 2 }} disablePadding>
                                 <ListItemButton component='label'>
@@ -242,7 +252,7 @@ export default function Feed() {
 
                 </Box>
                 {
-                    error != '' ? <Snackbar
+                    error !== '' ? <Snackbar
                         autoHideDuration={errorTimer}
                         open={open}
                         color='danger'
