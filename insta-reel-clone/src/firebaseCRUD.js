@@ -1,6 +1,6 @@
 // import { resolve } from 'npm-package-arg';
-import { addDocsFirestore, firestoreCollection, dbInstance } from './firebase';
-import { updateDoc, serverTimestamp, doc, getDoc, getDocs, setDoc, collection, addDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { dbInstance } from './firebase';
+import { updateDoc, serverTimestamp, doc, getDoc, getDocs, setDoc, collection, addDoc, arrayUnion } from "firebase/firestore";
 
 export async function add(data, dbName, metaData) {
     try {

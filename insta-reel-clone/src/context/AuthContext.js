@@ -43,7 +43,7 @@ export function AuthProvider(props) {
 
         socket.on("connectedClientID", (data) => {
             setOnlineUser([...data]);
-            console.log("+++",[...data]);
+            // console.log("+++",[...data]);
         });
     }
 
@@ -79,7 +79,8 @@ export function AuthProvider(props) {
         logout,
         connectWebScoket,
         disConnectSocket,
-        onlineUser
+        onlineUser,
+        socket
     }), [user, login, signup, logout, connectWebScoket, disConnectSocket, onlineUser]);
 
 

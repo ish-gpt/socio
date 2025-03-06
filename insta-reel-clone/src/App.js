@@ -6,6 +6,8 @@ import { AuthProvider } from './context/AuthContext';
 import Feed from './components/Feed';
 import PrivateRoute from './components/PrivateRoute';
 import Inbox from './components/Inbox';
+import PageNotFound from './components/Trex-audio/PageNotFound';
+import PageNotFound1 from './components/Trex-audio/PageNotFound1';
 import React, { useEffect } from 'react';
 
 function App() {
@@ -17,6 +19,7 @@ function App() {
           <Route path='/login' element={<Login />}></Route>
           <Route path='/signup' element={<Signup />}></Route>
           <Route path='/inbox' element={<PrivateRoute><Inbox /></PrivateRoute>}></Route>
+          <Route path='/pagenotfound' element={<PrivateRoute><PageNotFound1 /></PrivateRoute>}></Route>
           <Route path='/inbox/:id' element={<PrivateRoute><Inbox /></PrivateRoute>}></Route>
       </Routes>
     </AuthProvider>
