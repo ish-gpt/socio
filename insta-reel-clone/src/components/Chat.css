@@ -28,12 +28,12 @@
 
 .chat-container-footer{
     /* background-color: violet; */
-    border-top:1px solid #e7e7e7 ;
-    flex: 1;
-     display: flex; /* Enables flexbox layout */
-    justify-content: center; /* Centers child horizontally */
-    align-items: center; /* Centers child vertically */
-    height: 100px; /* Adjust height as needed */
+    border-top: 1px solid #e7e7e7;
+    flex: 1 1;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
     /* background-color: #f3f3f3; Optional for visualization */
 }
 
@@ -68,17 +68,46 @@
     flex: 8;
 }
 
-.send-btn{
-    flex: 1;
-}
-
-.upload-file{
-    flex: 1;
-}
-
 .input-box{
-    width: 100%;
+    font-size: 1em;
+    padding: 1em;
+    width: 98%;
     height: 100%;
     border-radius: 2em;
     border: 1px solid #e7e7e7;
+}
+
+.preview-img-container{
+    height: 7em;
+    width: 7em;
+    padding: 0.5em;
+    position: relative;
+}
+
+.preview-img{
+    height: 7em;
+    width: 7em;
+    border-radius: 0.5em;
+}
+
+.layer{
+    top: 7.5px;
+    bottom: 7.5px;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0.6;
+    left: 7.5px;
+    right: 7.5px;
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+.cancel-icon{
+    position: absolute;
+    left: 5.9em;
+    top: 0.6em;
+    /* height: 0.1em; */
+    width: 2.5em !important;
+    color: white;
+    padding: 0em;
 }

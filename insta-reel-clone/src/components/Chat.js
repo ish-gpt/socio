@@ -1,21 +1,61 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import CollectionsOutlinedIcon from '@mui/icons-material/CollectionsOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
 import UploadIcon from '@mui/icons-material/Upload';
+import AxiosService from '../axios/axiosInstance.js';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import './Chat.css';
+import { Button } from '@mui/material';
 
 function Chat({ userDetails, selectedUser }) {
+    const API_ENDPOINT = 'api/v1/message';
     const [msg, setMsg] = useState('');
     let { socket, user } = useContext(AuthContext);
     const [message, setMessage] = useState([]);
+    const [file, setFile] = useState(null);
+    const [fileUrl, setFileUrl] = useState('');
+    const [cancelIcon, setCancelIcon] = useState(false);
+    const imgRef = useRef(null)
+    const containerRef = useRef(null);
+    const cancelIconRef = useRef(null);
+    const layerRef = useRef(null);
+
+    useEffect(() => {
+        if (fileUrl) {
+            imgRef.current.src = fileUrl;
+            containerRef.current.addEventListener('mouseleave', (e) => {
+                setCancelIcon(false);
+                cancelIconRef.current.removeEventListener('click',()=>{});
+                layerRef.current.classList.remove('layer')
+            })
+            containerRef.current.addEventListener('mouseenter', (e) => {
+                setCancelIcon(true);
+                cancelIconRef.current.style.cursor = 'pointer';
+                cancelIconRef.current.addEventListener('click', () => {
+                    removeImagePreview()
+                })
+                layerRef.current.classList.add('layer')
+            })
+        }
+
+        return () => {
+            if (containerRef.current) {
+                containerRef.current.removeEventListener('mouseleave',()=>{});
+                containerRef.current.removeEventListener('mouseenter',()=>{});
+            }
+        }
+    }, [file, fileUrl]);
+
 
     useEffect(() => {
         // console.log(userDetails);
         setMsg('');
+        setMessage([]);
 
         subscribeToMessage();
 
@@ -32,8 +72,14 @@ function Chat({ userDetails, selectedUser }) {
 
     }, [selectedUser]);
 
+    function removeImagePreview() {
+        setFileUrl('');
+        setFile(null);
+    }
+
     function subscribeToMessage() {
         socket.on("receivedMsg", (msg) => {
+            if (msg.sender !== selectedUser.uid) return;
             setMessage((prevMessages) => [...prevMessages, msg]);
         })
     }
@@ -46,18 +92,37 @@ function Chat({ userDetails, selectedUser }) {
         return {
             msg: msg,
             sender: user.uid,
-            receiver: selectedUser.uid
+            receiver: selectedUser.uid,
+            image: file
         }
     }
 
-    function sendMessage() {
+    const onImageUpload = (e) => {
+        let file = e.target.files[0];
+        setFile(file);
+
+        if (file) {
+            setFileUrl(URL.createObjectURL(file))
+        }
+    }
+
+    async function saveMessage(msgBody) {
+        let token = await AxiosService.getFirebaseAuthToken();
+        let URL = `${API_ENDPOINT}/send/${selectedUser.uid}`;
+        await AxiosService.post(URL,
+            { data: msgBody },
+            {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    }
+
+    async function sendMessage() {
         const msgBody = prepareMessageBody();
-        // let msgBySender = {
-        //     id: user.uid,
-        //     msg: msg
-        // }
         setMessage((prevMessages) => [...prevMessages, msgBody]);
         socket.emit("newMessage", msgBody);
+        saveMessage(msgBody);
     }
 
 
@@ -109,18 +174,26 @@ function Chat({ userDetails, selectedUser }) {
                 </div>
             </div>
             <div className='chat-container-footer'>
+                {
+                    file ? <div className='preview-img-container' ref={containerRef}>
+                        <img className='preview-img' tabIndex={0} ref={imgRef}></img>
+                        <div ref={layerRef}></div>
+                        <div className='cancel-icon' ref={cancelIconRef}>
+                            {cancelIcon  && <CancelOutlinedIcon />}
+                        </div>   
+                    </div> : <></>
+                }
                 <div className='message-footer'>
-                    <div className='upload-file'>
-                        <IconButton aria-label="send" onClick={() => { sendMessage() }}>
-                            <UploadIcon />
-                        </IconButton>
-                    </div>
                     <div className='msg-text'>
                         <input className='input-box' type='text' value={msg} onChange={(e) => { setMsg(e.target.value) }} placeholder={selectedUser.uid}>
 
                         </input>
                     </div>
-                    <div className='send-btn'>
+                    <div className='upload-file'>
+                        <IconButton aria-label="send" component='label'>
+                            <input type="file" accept='image/*' hidden onChange={onImageUpload} />
+                            <CollectionsOutlinedIcon />
+                        </IconButton>
                         <IconButton aria-label="send" onClick={() => { sendMessage() }}>
                             <SendIcon />
                         </IconButton>
