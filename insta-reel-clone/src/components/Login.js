@@ -39,7 +39,7 @@ export default function Signup() {
         try {
             setLoading(true);
             await login(email, password);
-            navigate('/');
+            navigate('/inbox');
             setLoading(false);
         } catch (error) {
             setError('Some Error has occured, Please try again! : \n'+ error + '\n' +'Wait for page to reload');

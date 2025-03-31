@@ -29,6 +29,8 @@ export default function Inbox() {
             usersData = usersData.filter((doc) => res.uid !== doc.uid)
             setAllUsersDetails(usersData);
         });
+
+        // getFriends()
         // console.log("---", onlineUser);
     }, [user, onlineUser]);
 

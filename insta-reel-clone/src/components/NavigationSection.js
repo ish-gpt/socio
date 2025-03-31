@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import './Feed.css';
 import Drawer from '@mui/material/Drawer';
 import './NavigationSection.css'
-import insta from '../images/insta-logo.png';
+import insta from '../images/App-Logo-1.png';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 
