@@ -1,3 +1,5 @@
+More Features/Work Under Progress!!
+
 Socio - Real-Time Chat Application
 Developed a real-time chat application with a React frontend and Node.js (Express) backend, leveraging Firebase for user authentication. Implemented Socket.io for seamless real-time messaging, including online user tracking and chat functionality. Integrated features such as:
 
